@@ -5,4 +5,10 @@
 package frc.robot;
 
 /** Add your docs here. */
-public class Constants {}
+public class Constants {
+    public static final class IntakeConstants{
+        static final int kIntakeForwardsPcmId = 5;
+        static final int kIntakeBackwardsPcmId = 4;
+        static final int kIntakeRollerMotorCanId = 13;
+    }
+}
