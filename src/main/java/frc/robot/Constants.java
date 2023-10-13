@@ -6,7 +6,7 @@ package frc.robot;
 
 /** Add your docs here. */
 public final class Constants {
-    public static class DrivetrainConstants {
+    public static final class DrivetrainConstants {
         public static final int kLeftMotorLeaderCanId = 1;
         public static final int kLeftMotorFollowerCanId = 2;
         public static final int kRightMotorLeaderCanId = 3;
@@ -14,5 +14,9 @@ public final class Constants {
 
         public static final int kShifterForwardsPcmId = 0;
         public static final int kShifterBackwardsPcmId = 1;
+    }
+
+    public static final class OIConstants {
+        public static final int kDriverControllerPort = 0;
     }
 }
