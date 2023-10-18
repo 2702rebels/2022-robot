@@ -6,32 +6,39 @@ package frc.robot.subsystems;
 
 import java.util.function.DoubleSupplier;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DrivetrainConstants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-  // The motors on the left side of the drive.
-  private final MotorControllerGroup m_leftMotors =
-      new MotorControllerGroup(
-          new PWMSparkMax(DrivetrainConstants.kLeftMotorLeaderCanId),
-          new PWMSparkMax(DrivetrainConstants.kLeftMotorFollowerCanId));
+  private final CANSparkMax m_leftLeader = new CANSparkMax(DrivetrainConstants.kLeftMotorLeaderCanId, MotorType.kBrushless);
+  private final CANSparkMax m_rightLeader = new CANSparkMax(DrivetrainConstants.kRightMotorLeaderCanId, MotorType.kBrushless);
+  private final CANSparkMax m_leftFollower = new CANSparkMax(DrivetrainConstants.kLeftMotorFollowerCanId, MotorType.kBrushless);
+  private final CANSparkMax m_rightFollower = new CANSparkMax(DrivetrainConstants.kRightMotorFollowerCanId, MotorType.kBrushless);
 
-  // The motors on the right side of the drive.
-  private final MotorControllerGroup m_rightMotors =
-      new MotorControllerGroup(
-          new PWMSparkMax(DrivetrainConstants.kRightMotorLeaderCanId),
-          new PWMSparkMax(DrivetrainConstants.kRightMotorFollowerCanId));
-
-  private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
+  private final DifferentialDrive m_drive = new DifferentialDrive(m_leftLeader, m_rightLeader);
 
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
-    m_rightMotors.setInverted(true);
-    m_drive.setDeadband(0.1);
+  	// Left side leader motor setup.
+  	m_leftLeader.restoreFactoryDefaults();
+  	
+  	// Right side leader motor setup.
+  	m_rightLeader.restoreFactoryDefaults();
+  	m_rightLeader.setInverted(true);
+  	
+  	// Left side follower motor setup.
+  	m_leftFollower.restoreFactoryDefaults();
+  	m_leftFollower.follow(m_leftLeader);
+  	
+  	// Right side follower motor setup.
+  	m_rightFollower.restoreFactoryDefaults();
+  	m_rightFollower.follow(m_rightLeader);
+  	
+  	m_drive.setDeadband(0.1);
   }
 
   /**
@@ -50,5 +57,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    
+    // If we want to do something fun here, we could maybe estimate the drivetrain's speed and report it to the dashboard?
   }
 }
