@@ -7,7 +7,8 @@ package frc.robot;
 /** Add your docs here. */
 public class Constants {
     public static final class ShooterConstants{
-        static final int kShooterStage1MotorId = 15;
-        static final int kShooterStage2MotorId = 16;
+        public static final int kShooterStage1MotorId = 15;
+        public static final int kShooterStage2MotorId = 16;
+        public static final int kTalonStepsPerRotation = 2048;
     }
 }
