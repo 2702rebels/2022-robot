@@ -13,10 +13,15 @@ public final class Constants {
         public static final int kRightMotorFollowerCanId = 4;
 
         public static final int kShifterForwardsPcmId = 0;
-        public static final int kShifterBackwardsPcmId = 1;
+        public static final int kShifterReversePcmId = 1;
     }
 
     public static final class OIConstants {
         public static final int kDriverControllerPort = 0;
+    }
+
+    public static final class CompressorConstants {
+        public static final int kCompressorMinPressure = 70;
+        public static final int kCompressorMaxPressure = 120;
     }
 }

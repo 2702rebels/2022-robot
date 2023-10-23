@@ -8,6 +8,10 @@ import java.util.function.DoubleSupplier;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,6 +22,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private final CANSparkMax m_rightLeader = new CANSparkMax(DrivetrainConstants.kRightMotorLeaderCanId, MotorType.kBrushless);
   private final CANSparkMax m_leftFollower = new CANSparkMax(DrivetrainConstants.kLeftMotorFollowerCanId, MotorType.kBrushless);
   private final CANSparkMax m_rightFollower = new CANSparkMax(DrivetrainConstants.kRightMotorFollowerCanId, MotorType.kBrushless);
+
+  private final DoubleSolenoid m_shifters = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 
+    DrivetrainConstants.kShifterForwardsPcmId, DrivetrainConstants.kShifterReversePcmId);
+  private Boolean isHighGear;
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftLeader, m_rightLeader);
 
@@ -39,6 +47,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
   	m_rightFollower.follow(m_rightLeader);
   	
   	m_drive.setDeadband(0.1);
+
+    shiftGearboxHigh();
   }
 
   /**
@@ -52,6 +62,24 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // hand, and turning controlled by the right.
     return run(() -> m_drive.arcadeDrive(fwd.getAsDouble(), rot.getAsDouble()))
         .withName("arcadeDrive");
+  }
+
+  public void shiftGearboxHigh() {
+    m_shifters.set(Value.kForward);
+    isHighGear = true;
+  }
+
+  public void shiftGearboxLow() {
+    m_shifters.set(Value.kReverse);
+    isHighGear = false;
+  }
+
+  public void toggleGearbox() {
+    if(isHighGear == false) {
+      shiftGearboxHigh();
+    } else {
+      shiftGearboxLow();
+    }
   }
 
   @Override
