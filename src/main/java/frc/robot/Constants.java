@@ -11,4 +11,8 @@ public class Constants {
         public static final int kShooterStage2MotorId = 16;
         public static final int kTalonStepsPerRotation = 2048;
     }
+
+    public static final class OIConstants {
+        public static final int kDriverControllerPort = 0;
+    }
 }
