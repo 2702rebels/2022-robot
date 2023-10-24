@@ -13,10 +13,10 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class RobotContainer {
   // Subsystems
-  DrivetrainSubsystem m_drive = new DrivetrainSubsystem();
+  private DrivetrainSubsystem m_drive = new DrivetrainSubsystem();
 
   // The driver's controller
-  CommandXboxController m_driverController =
+  private CommandXboxController m_driverController =
       new CommandXboxController(OIConstants.kDriverControllerPort);
 
   public RobotContainer() {

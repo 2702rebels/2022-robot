@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants.CompressorConstants;
+import frc.robot.Constants.RobotConstants;
 
 public class Robot extends TimedRobot{
   private Command m_autonomousCommand;
@@ -23,7 +24,7 @@ public class Robot extends TimedRobot{
 
   // Construct our robot and set the cycle time to be 10ms.
   public Robot() {
-    super(0.01);
+    super(RobotConstants.kRobotPeriod);
   }
 
   @Override

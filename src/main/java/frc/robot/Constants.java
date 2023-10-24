@@ -6,6 +6,10 @@ package frc.robot;
 
 /** Add your docs here. */
 public final class Constants {
+    public static final class RobotConstants {
+        public static final double kRobotPeriod = 0.01;
+    }
+
     public static final class DrivetrainConstants {
         public static final int kLeftMotorLeaderCanId = 1;
         public static final int kLeftMotorFollowerCanId = 2;

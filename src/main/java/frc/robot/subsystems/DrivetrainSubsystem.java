@@ -48,6 +48,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
   	
   	m_drive.setDeadband(0.1);
 
+    // Since robot will be disabled when this initializes, it won't fire the solenoid.
+    // (Does this fire as soon as it's enabled?)
     shiftGearboxHigh();
   }
 
@@ -58,8 +60,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * @param rot the commanded rotation
    */
   public CommandBase arcadeDriveCommand(DoubleSupplier fwd, DoubleSupplier rot) {
-    // A split-stick arcade command, with forward/backward controlled by the left
-    // hand, and turning controlled by the right.
     return run(() -> m_drive.arcadeDrive(fwd.getAsDouble(), rot.getAsDouble()))
         .withName("arcadeDrive");
   }
