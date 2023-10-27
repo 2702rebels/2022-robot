@@ -9,7 +9,7 @@ public class Constants {
     public static final class ShooterConstants{
         public static final int kShooterStage1MotorId = 15;
         public static final int kShooterStage2MotorId = 16;
-        public static final int kTalonStepsPerRotation = 2048;
+        public static final double kTalonCountsToRPM = 600.0 / 2048.0;
     }
 
     public static final class OIConstants {

@@ -17,27 +17,39 @@ public class ShooterSubsystem extends SubsystemBase {
 
   /** Creates a new ShooterSubsystem. */
   public ShooterSubsystem() {
+    flywheel.configFactoryDefault();
+    flywheel.config_kP(0, 1);
+    flywheel.config_kI(0, 0);
+    flywheel.config_kD(0, 0);
+    flywheel.config_kF(0, 0);
+
+    topRoller.configFactoryDefault();
     topRoller.setInverted(true);
+    topRoller.config_kP(0, 1);
+    topRoller.config_kI(0, 0);
+    topRoller.config_kD(0, 0);
+    topRoller.config_kF(0, 0);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    double flyWheelRPM = (flywheel.getSelectedSensorVelocity() / ShooterConstants.kTalonStepsPerRotation) * 600;
+    double flyWheelRPM = (flywheel.getSelectedSensorVelocity() * ShooterConstants.kTalonCountsToRPM);
     SmartDashboard.putNumber("Flywheel Speed", flyWheelRPM);
+    double topRollerRPM = (topRoller.getSelectedSensorVelocity() * ShooterConstants.kTalonCountsToRPM);
+    SmartDashboard.putNumber("TopRoller Speed", topRollerRPM);
   }
 
-  //rpm = 600
   public void shoot(double rpm) {
-    double encoderPer100MS = rpm / 600 * ShooterConstants.kTalonStepsPerRotation;
-    flywheel.set(ControlMode.Velocity, encoderPer100MS);
-    topRoller.set(ControlMode.Velocity, encoderPer100MS);
+    System.out.println("We shooting boiz");
+    flywheel.set(ControlMode.Velocity, rpm / ShooterConstants.kTalonCountsToRPM);
+    topRoller.set(ControlMode.Velocity, rpm / ShooterConstants.kTalonCountsToRPM);
   }
 
   public void stop() {
+    System.out.println("Now we ain't");
     flywheel.set(ControlMode.PercentOutput, 0);
     topRoller.set(ControlMode.PercentOutput, 0);
   }
-
 
 }
