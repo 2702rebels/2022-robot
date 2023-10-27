@@ -60,7 +60,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * @param rot the commanded rotation
    */
   public CommandBase arcadeDriveCommand(DoubleSupplier fwd, DoubleSupplier rot) {
-    return run(() -> m_drive.arcadeDrive(fwd.getAsDouble(), rot.getAsDouble()))
+    return run(() -> m_drive.arcadeDrive(fwd.getAsDouble(), -rot.getAsDouble()))
         .withName("arcadeDrive");
   }
 

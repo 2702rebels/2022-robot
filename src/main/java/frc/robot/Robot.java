@@ -32,9 +32,7 @@ public class Robot extends TimedRobot{
     m_robotContainer = new RobotContainer();
 
     if(SmartDashboard.getBoolean("Compressor/EnabledState", false)) {
-      m_compressor.enableAnalog(
-        CompressorConstants.kCompressorMinPressure, 
-        CompressorConstants.kCompressorMaxPressure);
+      m_compressor.enableDigital();
     } else {
       m_compressor.disable();
     }
@@ -43,9 +41,7 @@ public class Robot extends TimedRobot{
     SmartDashboard.putData("Compressor/Disable", 
       new InstantCommand(() -> m_compressor.disable()));
     SmartDashboard.putData("Compressor/Enable", 
-      new InstantCommand(() -> m_compressor.enableAnalog(
-        CompressorConstants.kCompressorMinPressure, 
-        CompressorConstants.kCompressorMaxPressure)));
+      new InstantCommand(() -> m_compressor.enableDigital()));
   }
 
   @Override
