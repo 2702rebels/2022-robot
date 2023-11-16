@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,11 +16,11 @@ import frc.robot.Constants.FeederConstants;
 
 public class FeederSubsystem extends SubsystemBase {
 
-  private TalonSRX m_rightSide = new TalonSRX(FeederConstants.kFeederStage1RightMotorCanId);
-  private TalonSRX m_leftSide = new TalonSRX(FeederConstants.kFeederStage1LeftMotorCanId);
-  private TalonSRX m_stage2 = new TalonSRX(FeederConstants.kFeederStage2MotorCanId);
-  double m_intakeSpeed = 0;
-  double m_feedSpeed = 0;
+  private VictorSPX m_rightSide = new VictorSPX(FeederConstants.kFeederStage1RightMotorCanId);
+  private VictorSPX m_leftSide = new VictorSPX(FeederConstants.kFeederStage1LeftMotorCanId);
+  private VictorSPX m_stage2 = new VictorSPX(FeederConstants.kFeederStage2MotorCanId);
+  private double m_intakeSpeed = 0;
+  private double m_feedSpeed = 0;
 
   /** Creates a new FeederSubsystem. */
   public FeederSubsystem() {
