@@ -25,7 +25,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     topRoller.configFactoryDefault();
     topRoller.setInverted(true);
-    topRoller.config_kP(0, 1);
+    topRoller.config_kP(0, 0.1);
     topRoller.config_kI(0, 0);
     topRoller.config_kD(0, 0);
     topRoller.config_kF(0, 0);
