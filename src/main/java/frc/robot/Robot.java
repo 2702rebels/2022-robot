@@ -4,23 +4,55 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.CompressorConfigType;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Constants.CompressorConstants;
+import frc.robot.Constants.RobotConstants;
 
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot{
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
 
+  private Compressor m_compressor = new Compressor(PneumaticsModuleType.CTREPCM);
+
+  // Construct our robot and set the cycle time to be 10ms.
+  public Robot() {
+    super(RobotConstants.kRobotPeriod);
+  }
+
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
+
+    if(SmartDashboard.getBoolean("Compressor/EnabledState", false)) {
+      m_compressor.enableDigital();
+    } else {
+      m_compressor.disable();
+    }
+
+    // Put commands on the dashboard to enable and disable the compressor.
+    SmartDashboard.putData("Compressor/Disable", 
+      new InstantCommand(() -> m_compressor.disable()));
+    SmartDashboard.putData("Compressor/Enable", 
+      new InstantCommand(() -> m_compressor.enableDigital()));
   }
 
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+    
+    // Report information to the dashboard.
+    SmartDashboard.putBoolean("Compressor/EnabledState", 
+      m_compressor.getConfigType() != CompressorConfigType.Disabled);
+    SmartDashboard.putNumber("Compressor/Pressure", m_compressor.getPressure());
+    SmartDashboard.putNumber("Compressor/Current", m_compressor.getCurrent());
   }
 
   @Override
