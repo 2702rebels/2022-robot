@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -18,7 +18,7 @@ public class IntakeSubsystem extends SubsystemBase {
   // There's no Talano steps-per-rotation defined so its probably not a Talon motor
   // What is it?
 
-  private TalonSRX m_intakeRoller = new TalonSRX(IntakeConstants.kIntakeRollerMotorCanId);
+  private VictorSPX m_intakeRoller = new VictorSPX(IntakeConstants.kIntakeRollerMotorCanId);
   private double m_intakeForwardsSpeed = 0;
   private double m_intakeReverseSpeed = 0;
   
